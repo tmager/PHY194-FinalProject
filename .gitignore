@@ -1,3 +1,5 @@
+## C++
+
 # Compiled Object files
 *.slo
 *.lo
@@ -26,3 +28,19 @@
 *.exe
 *.out
 *.app
+
+## Temporary/Backup Files
+*~
+#*#
+
+## Python files
+*__pycache__*
+*.pyc
+
+## TeX/LaTeX Files
+*.aux
+*.out
+*.synctex.gz
+*_region_.prv*
+*.log
+*.toc
