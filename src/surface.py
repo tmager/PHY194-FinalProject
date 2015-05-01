@@ -3,7 +3,7 @@ import matplotlib as mpl
 
 class Surface:
 
-    def __init__(self, x, y, z, expr):
+    def __init__(self, x, y, z, expr, xmin, xmax, ymin, ymax):
         """
         Set up the Surface and the SymPy printing stuff
         """
@@ -11,6 +11,11 @@ class Surface:
         self.x = x
         self.y = y
         self.z = z
+
+        self.xmin = xmin
+        self.ymin = ymin
+        self.xmax = xmax
+        self.ymax = ymax
 
         self.expr = expr
         # Solve for z -- solve() always returns a list
@@ -26,9 +31,10 @@ class Surface:
     def distToSurface(self,Px,Py,Pz):
         """
         Find the minimum distance from the point specified to a point on the
-        surface. Returns a tuple containing the distance and the coordinates of
-        of the point(s) of closest approach, i.e.
-        (dist, [(x1,y1,z1), (x2,y2,z2) ...])
+        surface. Returns a tuple containing the distance and the coordinates
+        of of the point(s) of closest approach, i.e.  (dist, [(x1,y1,z1),
+        (x2,y2,z2) ...])
+
         """
         # Find zero points in partial derivatives to find the minimum distance
         sols = solve([self.distSqDx.subs([(self.x0,Px),(self.y0,Py),
@@ -37,7 +43,8 @@ class Surface:
                                          (self.z0,Pz)])],
                     [self.x,self.y],dict=True)
 
-        # Arbitrary large number, much larger than any maximum distance will be
+        # Arbitrary large number, much larger than any maximum distance could
+        # possibly be in normal operation
         min = 10000000000
         minIdx = []
 
@@ -69,3 +76,15 @@ class Surface:
 
     def printExpr(self):
         print(self.expr)
+
+
+    def printZExpr(self):
+        print(self.zexpr)
+
+    def eval(self,x,y,zhint=0):
+        sols = self.zexpr.subs([(self.x,x),(self.y,y)]).evalf()
+        if len(sols) == 0:
+            return ()
+
+        if len(sols) == 1:
+            return sols[0]
