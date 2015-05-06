@@ -1,0 +1,49 @@
+\documentclass[twocolumn,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{amsmath}
+\usepackage{xfrac}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage[inline,shortlabels]{enumitem}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{microtype}
+
+\hypersetup{ % Turn off link highlighting
+  allbordercolors = {white},
+  colorlinks,
+  allcolors = {black}
+}
+
+
+
+\begin{document}
+\twocolumn[\centering \Huge Sphere Packing \vspace*{14pt}]
+
+\section*{Overview}
+
+
+\section*{Variations on the Algorithm}
+
+\subsection*{Convergence Criteria}
+
+One possible optimization that we tried was changing how the algorithm decided
+when it had converged. The original code concluded that the algorithm had
+converged when no moves were accepted in an iteration. This could, we
+believed, caused the algorithm to terminate early, particularly for small
+numbers of particles, since there is some chance that no moves would be
+accepted even if some particles still had possible moves, because the moves
+were generated randomly.
+
+% Talk about move acceptance ratio graph for a low number of points, and how
+% the average over a few iterations doesn't appear to be near zero when the
+% algorithm terminates.
+
+\subsection*{}
+
+
+\subsection*{}
+\end{document}
