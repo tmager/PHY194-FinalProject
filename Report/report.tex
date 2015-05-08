@@ -28,22 +28,65 @@
 
 \section*{Variations on the Algorithm}
 
-\subsection*{Convergence Criteria}
+\subsection*{Convergence Criteria and Multiple Move Attempts}
 
-One possible optimization that we tried was changing how the algorithm decided
-when it had converged. The original code concluded that the algorithm had
-converged when no moves were accepted in an iteration. This could, we
-believed, caused the algorithm to terminate early, particularly for small
-numbers of particles, since there is some chance that no moves would be
-accepted even if some particles still had possible moves, because the moves
-were generated randomly.
+
 
 % Talk about move acceptance ratio graph for a low number of points, and how
 % the average over a few iterations doesn't appear to be near zero when the
 % algorithm terminates.
 
-\subsection*{}
+\subsection*{Adaptive Inflation}
+
+The second variation of the algorithm that we tried was implementing adaptive
+inflation rate, where the particles would increase at some fixed rate up until
+the minimum distance 
+
+\section*{Results}
+
+For each variation on our algorithm, we performed 50 runs each with 12, 20,
+and 50 particles. We tested 1, 2, 5, and 10 move attempts per particle per
+iteration; the adaptive inflation method was tested with both 1 and 10 move
+attempts per particle per iteration.
+
+\subsection*{Basic Algorithm}
 
 
-\subsection*{}
+
+\subsection*{Multiple-Move-Attempt Algorithm}
+
+As we expected, this algorithm tended to produce somewhat denser packs at the
+cost of slightly increased run time. However, there was in general no
+improvement in the pack as a result of making more attempts beyond two or
+three.
+
+This method of making multiple move attempts did have a downside, however. For
+larger numbers of particles, inflation was rapid enough that a single particle
+could keep the algorithm from stopping by making tiny moves, with the rest of
+the particles failing to make any moves, and thus causing the other particles
+to inflate such that they overlapped one another. Needless to say this makes
+the pack invalid. Looking at the individual run data in \#\#\#\#\#, we see
+that the packing ratios for some of the 50-point, 10-attempt packs even go
+above one, which is very obviously wrong.
+
+\subsection*{Adaptive Inflation}
+
+As expected, the adaptive inflation algorithm took massively longer than
+anything else we tried for comparable numbers of particles --- at least for
+multiple-attempt packs. For smaller numbers of particles, it sometimes
+converged as quickly (time-wise) as our other methods when run taking only
+single move attempts. It also tended to produce lower packing ratios than any
+of the other methods. This can probably be attributed to some combination of
+the fact that the adaptive inflation algorithm was the only one that actually
+enforced non-overlapping spheres specifically (since having the spheres
+overlap would inflate the packing ratio) and that it could terminate if two
+spheres happened to end up right next to one another by chance, even if they
+have plenty of room to move in other directions.
+
+
+\section*{Conclusions}
+
+
+
+
 \end{document}
